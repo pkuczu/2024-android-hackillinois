@@ -21,7 +21,9 @@ class MainActivity : ComponentActivity() {
 
         eventViewModel.eventsLiveData.observe(this, Observer { events ->
             events?.let {
-                binding.recyclerView.adapter = EventAdapter(it)
+                // Sort events by start time
+                val sortedEvents = it.sortedBy { event -> event.startTime }
+                eventAdapter.updateEvents(sortedEvents)
             }
         })
 
